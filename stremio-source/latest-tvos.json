@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "source": "drminht-independent-cdn-scan",
+  "platform": "tvos",
+  "bundleIdentifier": "com.stremio.pal",
+  "latest": {
+    "version": "2.0.6",
+    "build": "21",
+    "downloadURL": "https://dl.strem.io/apple/2.0.6b21/tvos/stremio_tvOS.ipa",
+    "size": 73987585,
+    "sha256": "00f318ee5b6c6f1cbf36a55bd31ddcb616bc1a773c0cd3cea0bea154340ef8b1"
+  },
+  "bootstrap": true
+}
