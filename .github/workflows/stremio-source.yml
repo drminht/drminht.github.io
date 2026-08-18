@@ -1,0 +1,63 @@
+name: Stremio tvOS source
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stremio-tvos-source
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v4
+
+      - name: Validate scanner syntax
+        run: python3 -m py_compile stremio-source/scan_stremio.py
+
+      - name: Scan official Stremio CDN
+        run: python3 stremio-source/scan_stremio.py
+
+      - name: Validate manifest
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          p = Path('stremio-source/latest-tvos.json')
+          d = json.loads(p.read_text())
+          assert d['schemaVersion'] == 1
+          assert d['platform'] == 'tvos'
+          assert d['bundleIdentifier'] == 'com.stremio.pal'
+          latest = d['latest']
+          u = urlparse(latest['downloadURL'])
+          assert u.scheme == 'https'
+          assert u.hostname == 'dl.strem.io'
+          assert u.path.endswith('/tvos/stremio_tvOS.ipa')
+          assert len(latest['sha256']) == 64
+          assert int(latest['size']) > 5_000_000
+          print(f"Validated {latest['version']} build {latest['build']}")
+          PY
+
+      - name: Publish manifest change
+        shell: bash
+        run: |
+          if git diff --quiet -- stremio-source/latest-tvos.json; then
+            echo 'Manifest unchanged.'
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add stremio-source/latest-tvos.json
+          git commit -m 'chore: update verified Stremio tvOS source'
+          git push
