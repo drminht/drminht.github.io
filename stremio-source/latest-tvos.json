@@ -10,5 +10,6 @@
     "size": 73987585,
     "sha256": "00f318ee5b6c6f1cbf36a55bd31ddcb616bc1a773c0cd3cea0bea154340ef8b1"
   },
-  "bootstrap": true
+  "bootstrap": false,
+  "verifiedAt": "2026-08-18T06:34:43+00:00"
 }
