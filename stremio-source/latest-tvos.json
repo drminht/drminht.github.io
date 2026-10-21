@@ -4,12 +4,12 @@
   "platform": "tvos",
   "bundleIdentifier": "com.stremio.pal",
   "latest": {
-    "version": "2.0.8",
-    "build": "23",
-    "downloadURL": "https://dl.strem.io/apple/2.0.8b23/tvos/stremio_tvOS.ipa",
-    "size": 74055518,
-    "sha256": "46cbac96b1f4cf9b767699a5ad88ac856743f91caf030b0c99a584e99ce20f23"
+    "version": "2.1.0",
+    "build": "24",
+    "downloadURL": "https://dl.strem.io/apple/2.1.0b24/tvos/stremio_tvOS.ipa",
+    "size": 74745267,
+    "sha256": "7af9e474a5566a295a52013c7f66d9285264b395197b5018ed2c1d29fbf7104f"
   },
   "bootstrap": false,
-  "verifiedAt": "2026-09-10T20:53:05+00:00"
+  "verifiedAt": "2026-10-21T17:12:46+00:00"
 }
